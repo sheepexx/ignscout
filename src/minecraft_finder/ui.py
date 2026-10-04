@@ -17,7 +17,7 @@ from rich.measure import Measurement
 from rich.table import Table
 from rich.text import Text
 
-from . import APP_NAME
+from . import APP_NAME, AUTHOR
 from .availability import ReleaseKind, headline, release_for, short_label
 from .http_client import RequestStats
 from .models import CheckResult, Status, format_uuid
@@ -117,6 +117,8 @@ def banner(rows: Iterable[tuple[str, RenderableType]], *, title: str = APP_NAME)
     return Panel(
         kv_grid(rows, min_label=14),
         title=Text(f" {title} ", style=f"bold {ACCENT}"),
+        subtitle=Text(f" made by {AUTHOR} ", style=MUTED) if title == APP_NAME else None,
+        subtitle_align="right",
         border_style=ACCENT,
         box=box.ROUNDED,
         padding=(1, 3),

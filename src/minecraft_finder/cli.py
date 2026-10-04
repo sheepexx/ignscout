@@ -99,6 +99,7 @@ app = typer.Typer(
     name="minecraft-finder",
     help=f"[bold]{APP_NAME}[/] — find available and soon-to-be-available Minecraft Java usernames. "
     "Run it without a command for a simple menu.",
+    epilog=f"Made by {AUTHOR}",
     add_completion=False,
     rich_markup_mode="rich",
     context_settings={"help_option_names": ["-h", "--help"]},

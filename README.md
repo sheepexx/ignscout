@@ -67,7 +67,7 @@ Choose a number:
    │   Stop any time    press Ctrl+C; everything found so far is saved   │
    │   Results          output\available.txt                             │
    │                                                                     │
-   ╰─────────────────────────────────────────────────────────────────────╯
+   ╰────────────────────────────────────────────────  made by sheepex_  ─╯
    Start now? [y/n] (y):
    ```
 
@@ -208,7 +208,7 @@ Mojang API.
 │   Database         data\results.db                                          │
 │   Output           output\                                                  │
 │                                                                             │
-╰─────────────────────────────────────────────────────────────────────────────╯
+╰────────────────────────────────────────────────────────  made by sheepex_  ─╯
 ```
 
 **Live dashboard** (`scan words.txt --provider demo`, redrawn in place 4× per second):
