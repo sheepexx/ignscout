@@ -1,0 +1,46 @@
+# Minecraft Name Finder — example configuration.
+# Copy to config.toml (or pass --config PATH). Command-line flags override these values.
+
+[scanner]
+workers = 4                  # concurrent workers; every request still passes the shared rate limiter
+requests_per_second = 1.0    # global request budget. Mojang documents ~200 requests / 2 minutes per IP,
+                             # so values above ~1.66 are capped automatically.
+burst = 1                    # requests that may be sent back-to-back after an idle period
+timeout = 10                 # seconds per request
+max_retries = 4              # retries for timeouts, connection errors, 5xx and 429 responses
+backoff_base = 1.0           # seconds; exponential backoff (1, 2, 4, 8 … s) with jitter
+backoff_max = 60.0
+rate_limit_cooldown = 30.0   # pause after HTTP 429 without Retry-After (doubles per retry, max 5 min)
+filter_offensive = true      # skip names Mojang's word filter would refuse (anus, boner, slurs, ...)
+
+[cache]
+ttl_hours = 24               # results younger than this are not re-checked (ERROR/UNKNOWN always are)
+
+[output]
+directory = "output"         # available.txt, soon.txt, results.jsonl, exports
+jsonl = true
+
+[database]
+path = "data/results.db"
+
+[logging]
+directory = "logs"           # logs/minecraft-finder.log
+
+[providers]
+default = "minecraft"        # "minecraft" or "demo" (offline simulation)
+
+[providers.minecraft]
+use_bulk = true                  # 10 names per request via the official bulk lookup
+verify_availability = false      # confirm unclaimed names with the token-backed endpoint (also: --verify)
+token_env = "MINECRAFT_ACCESS_TOKEN"   # environment variable holding the token — never put tokens here
+verify_requests_per_minute = 3.0 # Mojang allows 20 availability checks per 5 minutes per account
+self_test = true                 # one request for a known profile before each scan
+
+[providers.namemc]
+enabled = false                  # experimental enrichment; review NameMC's terms first
+min_interval_seconds = 10        # minimum 5; robots.txt Crawl-delay is honoured if longer
+max_consecutive_failures = 3
+
+[providers.demo]
+latency = 0.2
+error_rate = 0.01
